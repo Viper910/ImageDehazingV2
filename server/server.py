@@ -30,14 +30,14 @@ def upload_image():
 
     if file:
         filename = file.filename
-        file_path = os.path.join('uploads', filename)
+        file_path = os.path.join('static','uploads', filename)
         last_uploaded = file_path
         file.save(file_path)
-        return make_response(jsonify({'message': 'File uploaded successfully','file_path': file_path}),200)
+        return make_response(jsonify({'message': 'File uploaded successfully','file_path': f'http://127.0.0.1:5000{url_for('static', filename=f'uploads/{filename}')}'}),200)
 
 @app.route('/generate/<name>',methods=['get'])
 def generate(name):
-    fileName = os.path.join(BASE_PATH,'uploads',name)
+    fileName = os.path.join(BASE_PATH,'static','uploads',name)
     dehaze_name = name.split('.')[0]
     (ssim, psnr) = generateDehazeImage(fileName,dehaze_name)
     ssim = round(float(ssim),2)
@@ -49,7 +49,7 @@ def generate(name):
     'ssim': ssim,
     'psnr': psnr
     }
-    return make_response(jsonify({'file_path': f'http://127.0.0.1:5000{url_for('static', filename=name)}','ssim': ssim,'psnr':psnr}),200)
+    return make_response(jsonify({'file_path': f'http://127.0.0.1:5000{url_for('static', filename=f'generated/{name}')}','ssim': ssim,'psnr':psnr}),200)
 
 if __name__ == '__main__':
     app.run(debug=True)

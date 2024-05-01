@@ -25,10 +25,11 @@ def generateDehazeImage(PATH,name):
     pred = loaded_generator(inp1, training=True)
     pred = pred['output_1'][0].numpy()
     pred = (pred + 1)/2.0
-    plt.figure(figsize=(15, 15))
+    plt.figure(figsize=(5, 5))
+    plt.tight_layout()
     plt.imshow(pred)
     plt.axis('off')
-    plt.savefig(f'static/{name}.png',dpi=64) 
+    plt.savefig(f'static/generated/{name}.png',dpi=64) 
     plt.close()
     inpImg = convert_inp_image(os.path.join(PATH))
     inpImg = next(iter(inpImg.take(1)))

@@ -42,7 +42,7 @@ Utilizing Pix2Pix, a conditional generative adversarial network (GAN), to create
 - After the training is over the generator model will be stored inside generator_model folder.
 
 **5. Run Python Server:**
-
+- Before running the python server create a folder inside static folder with name ```uploads``` (all the uploaded images will be stored here).
 - ``` python server.py ```
 - ```/upload``` post method to upload image 
 - ```/generate/<image-id>``` get method to generate image 
